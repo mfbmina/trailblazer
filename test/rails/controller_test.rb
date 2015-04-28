@@ -203,4 +203,11 @@ class ActiveRecordPresentTest < ActionController::TestCase
 
     assert_equal "active_record_bands/show.html: Band, Band, true, Band::Update", response.body
   end
+
+  test "#present with dotted table name" do
+    band = Band::Create[band: {name: "Nofx"}].model
+    get :show_with_dotted_table_name, id: band.id
+
+    assert_equal "active_record_bands/show.html: Band, Band, true, Band::Update", response.body
+  end
 end

@@ -33,7 +33,11 @@ app.routes.draw do
     end
   end
 
-  resources :active_record_bands
+  resources :active_record_bands do
+    member do
+      get :show_with_dotted_table_name
+    end
+  end
 
   resources :bands do
     collection do
@@ -51,9 +55,10 @@ require 'trailblazer/operation/responder'
 require 'trailblazer/operation/controller'
 require 'trailblazer/operation/representer'
 
-require 'fake_app/controllers'
 require 'fake_app/models'
 require 'fake_app/song/operations.rb'
+require 'fake_app/controllers'
+
 
 # helpers
 Object.const_set(:ApplicationHelper, Module.new)

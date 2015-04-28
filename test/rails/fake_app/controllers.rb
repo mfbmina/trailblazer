@@ -115,4 +115,22 @@ class ActiveRecordBandsController < ApplicationController
 
     render text: "active_record_bands/show.html: #{@model.class}, #{@band.class}, #{@form.is_a?(Reform::Form)}, #{@operation.class}"
   end
+
+
+  # test dotted table names like
+  class Band::DottedTableName < Band
+    def self.table_name
+      "admin.bands"
+    end
+  end
+
+  class Band::Update::DottedTableName < Band::Update
+    model Band::DottedTableName
+  end
+
+  def show_with_dotted_table_name
+    present Band::Update::DottedTableName
+
+    render text: "active_record_bands/show.html: #{@model.class}, #{@band.class}, #{@form.is_a?(Reform::Form)}, #{@operation.class}"
+  end
 end
